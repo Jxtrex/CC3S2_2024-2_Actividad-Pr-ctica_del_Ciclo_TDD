@@ -13,8 +13,8 @@ def create_counter(name):
 
     # Verifica si el contador ya existe
     if name in COUNTERS:
-        return {"message": f"El contador {name} ya existe"}, status.HTTP_409_CONFLICT
+        return {"message": f"El contador {name} ya existe"}, src.status.HTTP_409_CONFLICT
 
     # Si no existe, inicializa el contador en 0
     COUNTERS[name] = 0
-    return {name: COUNTERS[name]}, status.HTTP_201_CREATED
+    return {name: COUNTERS[name]}, src.status.HTTP_201_CREATED
