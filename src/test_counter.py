@@ -54,3 +54,12 @@ def test_update_a_counter_invalid_data(client):
     data = response.get_json()
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
+
+def test_delete_a_counter(client):
+    # Creamos un contador
+    client.post("/counters/test_counter3")
+    result1 = client.post("/counters/test_counter3")
+    # Eliminamos el contador
+    result2 = client.delete("/counters/test_counter3")
+    assert result1.status_code == HTTPStatus.CREATED
+    assert result2.status_code == HTTPStatus.NO_CONTENT

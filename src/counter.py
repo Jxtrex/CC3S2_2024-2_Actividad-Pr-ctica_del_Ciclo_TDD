@@ -41,3 +41,14 @@ def update_counter(name):
     # Actualiza el valor del contador
     COUNTERS[name] = nuevoValor
     return {name: COUNTERS[name]}, src.status.HTTP_200_OK
+
+@app.route("/counters/<name>", methods=["DELETE"])
+def delete_counter(name):
+    global COUNTERS
+     # Verifica si el contador existe
+    if name not in COUNTERS:
+        return {"message": f"El contador {name} no existe"}, src.status.HTTP_404_NOT_FOUND
+    # Eliminamos el valor del diccionario
+    
+    COUNTERS.pop(name)
+    return COUNTERS ,src.status.HTTP_204_NO_CONTENT
