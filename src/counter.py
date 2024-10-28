@@ -1,5 +1,6 @@
 from flask import Flask
 import src.status
+from flask import request
 
 app = Flask(__name__)
 
@@ -18,3 +19,25 @@ def create_counter(name):
     # Si no existe, inicializa el contador en 0
     COUNTERS[name] = 0
     return {name: COUNTERS[name]}, src.status.HTTP_201_CREATED
+
+
+@app.route("/counters/<name>", methods=["PUT"])
+def update_counter(name):
+    """Actualiza el valor de un contador"""
+    global COUNTERS
+
+    # Verifica si el contador existe
+    if name not in COUNTERS:
+        return {"message": f"El contador {name} no existe"}, src.status.HTTP_404_NOT_FOUND
+
+    # Obtiene el nuevo valor del contador desde el cuerpo de la solicitud
+    data = request.get_json()
+    nuevoValor = data.get("valor")
+
+    # Verifica que el nuevo valor sea un número entero
+    if not isinstance(nuevoValor, int):
+        return {"message": "El valor debe ser un entero"}, src.status.HTTP_400_BAD_REQUEST
+
+    # Actualiza el valor del contador
+    COUNTERS[name] = nuevoValor
+    return {name: COUNTERS[name]}, src.status.HTTP_200_OK
