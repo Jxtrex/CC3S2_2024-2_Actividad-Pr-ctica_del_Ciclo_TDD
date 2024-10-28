@@ -2,7 +2,7 @@
 Casos de prueba para el servicio web de contador
 """
 import pytest
-from counter import app
+from src.counter import app
 from http import HTTPStatus
 
 @pytest.fixture

@@ -1,5 +1,5 @@
 from flask import Flask
-import status
+import src.status
 
 app = Flask(__name__)
 
